@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/BtChalleng"
+            android:layout_width="125dp"
+            android:layout_height="100dp"
+            android:layout_weight="10"
+            android:text="אתגר" />
+
+        <Button
+            android:id="@+id/BtBoardUp20"
+            android:layout_width="125dp"
+            android:layout_height="100dp"
+            android:layout_marginLeft= "10dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="10"
+            android:text="כפל עד 20" />
+
+        <Button
+            android:id="@+id/BtMultiTable"
+            android:layout_width="125dp"
+            android:layout_height="100dp"
+            android:text="לוח הכפל"
+            android:layout_weight="10"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/TvFirstNum"
+            android:layout_width="160dp"
+            android:layout_height="75dp"
+            android:layout_gravity="center"
+            android:layout_marginVertical="5dp"
+            android:layout_marginTop="15dp"
+            android:background="#F3AE00"
+            android:text=" "
+            android:textAlignment="center"
+            android:textSize="20dp" />
+
+        <TextView
+            android:layout_width="160dp"
+            android:layout_height="75dp"
+            android:layout_marginVertical="5dp"
+            android:layout_marginTop="5dp"
+            android:background="#F3AE00"
+            android:gravity="center"
+            android:text="x"
+            android:textSize="25dp" />
+
+        <TextView
+            android:id="@+id/TvSecandNum"
+            android:layout_width="160dp"
+            android:layout_height="75dp"
+            android:layout_gravity="center"
+            android:layout_marginVertical="5dp"
+            android:layout_marginTop="5dp"
+            android:background="#F3AE00"
+            android:text=" "
+            android:textAlignment="center"
+            android:textSize="20dp" />
+
+        <EditText
+            android:id="@+id/EtAnswer"
+            android:layout_width="160dp"
+            android:layout_height="75dp"
+            android:layout_marginVertical="5dp"
+            android:layout_marginTop="5dp"
+            android:background="#F3AE00"
+            android:gravity="center"
+            android:hint= "תשובה"
+            android:textSize="25dp" />
+
+        <Button
+            android:id="@+id/Btchecking"
+            android:layout_width="160dp"
+            android:layout_height="75dp"
+            android:text="בדיקה"
+            android:textSize="25dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_marginTop="30dp">
+
+                <Button
+                    android:id="@+id/BtSaver"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="5dp"
+                    android:backgroundTint="#800000"
+                    android:gravity="center"
+                    android:text=" save "
+                    android:textSize="20dp" />
+
+                <Button
+                    android:id="@+id/BtShowMeAllTheUsers"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:text="SHOW ALL USERS"
+                    android:textSize="20dp"
+                    android:gravity="center"
+                    />
+            </LinearLayout>
+</LinearLayout>
+
