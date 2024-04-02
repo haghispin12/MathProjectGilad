@@ -27,13 +27,8 @@ public class Exercise {
 
     }
 
-    public boolean chack(String answer) {
-        int result = num1 * num2;
-        String res = result + " ";
-        if (answer.equals(res)) {
-            return true;
-        } else
-            return false;
+    public boolean chack(int answer) {
+      return answer == num1*num2;
     }
 
     public int getNum1() {

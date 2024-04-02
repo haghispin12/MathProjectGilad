@@ -1,6 +1,12 @@
 package com.example.mathprojectgilad;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContract;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
@@ -16,6 +22,8 @@ import java.util.Random;
 
 
 public class MainActivity extends AppCompatActivity {
+
+    private Button btrate;
 
     private Button BtChalleng;
 
@@ -39,10 +47,20 @@ public class MainActivity extends AppCompatActivity {
 
     private int num2;
 
+    private FragmentTransaction trans;
+
     //Exercise exercise;
 
     Mainviewmodel viewModel;
 
+    ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    int myrate = result.getData().getIntExtra("rate", -1);
+                    Toast.makeText(MainActivity.this,myrate+"",Toast.LENGTH_SHORT).show();
+                }
+            });
 
 
     @Override
@@ -54,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String etuserName = intent.getStringExtra("Name");
         Toast.makeText(MainActivity.this, "helo " + etuserName + " ", Toast.LENGTH_LONG).show();
+
         viewModel.vNum1.observe(this, new Observer<Integer>() {
             @Override
             public void onChanged(Integer integer) {
@@ -70,7 +89,18 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+
     public void intview() {
+        btrate = findViewById(R.id.Btrate);
+        btrate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, RateActivity.class);
+                activityResultLauncher.launch(intent);
+            }
+        });
+
+
         BtChalleng = findViewById(R.id.BtChalleng);
         BtChalleng.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,6 +116,7 @@ public class MainActivity extends AppCompatActivity {
                 boolean res = viewModel.vchak(EtAnswer.getText().toString());
                 if (res == true) {
                     Toast.makeText(MainActivity.this, "success", Toast.LENGTH_LONG).show();
+                    viewModel.setScore(viewModel.point);
                 } else {
                     Toast.makeText(MainActivity.this, "error", Toast.LENGTH_LONG).show();
                 }
@@ -129,6 +160,9 @@ public class MainActivity extends AppCompatActivity {
         BtShowMeAllTheUsers.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+            trans.add(R.id.frameLayout, new fragment_showusers());
+            trans.commit();
 
             }
         });
