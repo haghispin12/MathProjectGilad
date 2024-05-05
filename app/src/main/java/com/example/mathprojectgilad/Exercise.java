@@ -25,6 +25,7 @@ public class Exercise {
         num1 = r.nextInt(8) + 1;
         num2 = r.nextInt(10) + 10;
 
+
     }
 
     public boolean chack(int answer) {
