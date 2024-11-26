@@ -10,7 +10,8 @@
 <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+    tools:ignore="ExtraText">
 
     <EditText
         android:id="@+id/etFragmentUserName"
@@ -63,7 +64,15 @@
     android:id="@+id/btAddUser"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:text="ADD USER" />
+    android:text="ADD USER"
+    />
+
+    <Button
+        android:id="@+id/btBackHome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="BACK"/>
 
 </LinearLayout>
 </FrameLayout>

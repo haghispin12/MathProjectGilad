@@ -160,9 +160,9 @@ public class MainActivity extends AppCompatActivity {
         BtShowMeAllTheUsers.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, fragment_showusers.class);
+                activityResultLauncher.launch(intent);
 
-            trans.add(R.id.frameLayout, new fragment_showusers());
-            trans.commit();
 
             }
         });
