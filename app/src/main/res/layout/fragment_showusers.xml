@@ -5,8 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    >
+    android:background="@color/white"
 
+    >
 <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -37,42 +38,39 @@
     ></LinearLayout>
 
 
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:layout_marginTop="80dp"
-    >
-
-<Button
-    android:layout_gravity="center"
-    android:id="@+id/btAddPicture"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="ADD PICTURE"
-    />
-<ImageView
-    android:layout_gravity="center"
-    android:id="@+id/ivProfileImage"
-    android:layout_width="170dp"
-    android:layout_height="170dp"
-    android:layout_marginTop="10dp"
-    />
-
-<Button
-    android:layout_gravity="center"
-    android:id="@+id/btAddUser"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="ADD USER"
-    />
-
-    <Button
-        android:id="@+id/btBackHome"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="BACK"/>
+        android:layout_marginTop="80dp"
+        android:orientation="vertical">
 
-</LinearLayout>
+        <Button
+            android:id="@+id/btAddPicture"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="ADD PICTURE" />
+
+        <ImageView
+            android:id="@+id/ivProfileImage"
+            android:layout_width="170dp"
+            android:layout_height="170dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp" />
+
+        <Button
+            android:id="@+id/btAddUser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="ADD USER" />
+
+        <Button
+            android:id="@+id/btBackHome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="BACK" />
+
+    </LinearLayout>
 </FrameLayout>
