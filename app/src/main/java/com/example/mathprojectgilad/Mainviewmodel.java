@@ -1,9 +1,14 @@
 package com.example.mathprojectgilad;
 
+import android.content.Context;
+import android.util.Log;
+
+import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 public class Mainviewmodel extends ViewModel {
+    public static long dbhalper;
     MutableLiveData<Integer> vNum1;
 
     User user;
@@ -16,12 +21,24 @@ public class Mainviewmodel extends ViewModel {
 
     Exercise exercise;
 
+    public String tvUserName (){
+        return user.getUserName();
+    }
+    public int tvRate1(){
+        return user.getRate();
+    }
+
+    public int tvScore1(){
+        return user.getMyScore();
+    }
+
     public Mainviewmodel() {
         vNum1 = new MutableLiveData<>();
         vNum2 = new MutableLiveData<>();
         user = new User();
         exercise = new Exercise();
     }
+
 
     public void vChalleng() {
         exercise.setBtChalleng();
@@ -44,24 +61,31 @@ public class Mainviewmodel extends ViewModel {
         point = 15;
     }
 
-    public Boolean vchak(String answer) {
-        Boolean b1 = exercise.chack(Integer.valueOf(answer));
+
+    public long dbAddUser (Context taz){
+        DBHelper id =  new DBHelper(taz);
+        long db = id.insert(user,taz);
+        Log.d("gilad1",db+"");
+        return db;
+    }
+
+
+    public boolean vCheck(String answer) {
+        boolean b1 = exercise.chack(Integer.parseInt(answer));
         return b1;
     }
-
-    public void setUser (String Name){
-        user.setName(Name);
-    }
-
-    public void setRate (int rate){
+    public void updateRate(int rate){
         user.setRate(rate);
     }
 
-    public void setScore (int score){
-        user.setScore(score);
-        sum = score + sum;
+    public void updateName(String name){
+        user.setName(name);
+
     }
 
 
+    public Mainviewmodel user() {
+        return null;
+    }
 
 }

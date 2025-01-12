@@ -2,7 +2,7 @@ package com.example.mathprojectgilad;
 
 import static android.app.Activity.RESULT_OK;
 
-import android.app.Activity;
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.net.Uri;
@@ -14,19 +14,24 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
 public class fragment_showusers extends Fragment {
-    private EditText EtUserName;
+
+    private TextView tvRateing;
+    private TextView tvUsername;
+    private TextView tvScore;
 
     private Button BtPICTURE;
 
@@ -34,10 +39,13 @@ public class fragment_showusers extends Fragment {
 
     private Button BtBackHome;
 
-    private ImageView PcimageView;
+    private Button BtAddUser;
+
+    private ImageView ivProfileImage;
+
+    private Mainviewmodel mainviewmodel;
 
     Uri uri;
-
     ActivityResultLauncher<Intent> startCamera = registerForActivityResult(
 
             new ActivityResultContracts.StartActivityForResult(),
@@ -45,12 +53,11 @@ public class fragment_showusers extends Fragment {
             new ActivityResultCallback<ActivityResult>() {
 
                 @Override
-
                 public void onActivityResult(ActivityResult result) {
 
                     if (result.getResultCode() == RESULT_OK) {
 
-                        PcimageView.setImageURI(uri);
+                        ivProfileImage.setImageURI(uri);
 
                     }
 
@@ -66,15 +73,27 @@ public class fragment_showusers extends Fragment {
 
 
 
+    @SuppressLint({"MissingInflatedId", "WrongViewCast"})
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-
+        mainviewmodel = new ViewModelProvider(getActivity()).get(Mainviewmodel.class);
         View view= inflater.inflate(R.layout.fragment_showusers, container, false);
 
-        EtUserName = view.findViewById(R.id.etFragmentUserName);
+        tvRateing = view.findViewById(R.id.tvRate);
+
+        tvUsername = view.findViewById(R.id.tvUsername);
+
+        tvScore = view.findViewById(R.id.tvScore);
+
         BtPICTURE = view.findViewById(R.id.btAddPicture);
+
+        tvScore.setText(mainviewmodel.user.getMyScore()+ "");
+        tvUsername.setText(mainviewmodel.user.getUserName()+"");
+        tvRateing.setText(mainviewmodel.user.getRate()+"");
+
         BtPICTURE.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View view) {
                 ContentValues values = new ContentValues();
@@ -83,8 +102,7 @@ public class fragment_showusers extends Fragment {
 
                 values.put(MediaStore.Images.Media.DESCRIPTION, "From Camera");
 
-                uri =
-                        requireContext().getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+                uri = requireContext().getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
 
                 Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
@@ -94,19 +112,38 @@ public class fragment_showusers extends Fragment {
 
             }
         });
+
+
+        ivProfileImage = view.findViewById(R.id.ivProfileImage);
+
+        BtAddUser = view.findViewById(R.id.btAddUser);
+        BtAddUser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                long id = 0;
+                if( getActivity() != null )
+                    id = mainviewmodel.dbAddUser(getActivity());
+                Toast.makeText(getActivity(),id+"", Toast.LENGTH_SHORT).show();
+
+            }
+        });
         BtUser =view.findViewById(R.id.btAddUser);
         BtBackHome = view.findViewById(R.id.btBackHome);
         BtBackHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 getActivity().onBackPressed();
-
             }
         });
+
+
+
+
         return view;
     }
-
     public void setPcimageView(ImageView pcimageView) {
-        PcimageView = pcimageView;
+        ivProfileImage = pcimageView;
     }
+
+
 }

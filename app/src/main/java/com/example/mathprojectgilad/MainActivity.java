@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -58,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onActivityResult(ActivityResult result) {
                     int myrate = result.getData().getIntExtra("rate", -1);
+                    viewModel.user.setRate(myrate);
                     Toast.makeText(MainActivity.this,myrate+"",Toast.LENGTH_SHORT).show();
                 }
             });
@@ -67,10 +69,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        viewModel = new Mainviewmodel();
+        viewModel = new ViewModelProvider(this).get(Mainviewmodel.class);
         intview();
         Intent intent = getIntent();
         String etuserName = intent.getStringExtra("Name");
+        viewModel.user.setName(etuserName);
         Toast.makeText(MainActivity.this, "helo " + etuserName + " ", Toast.LENGTH_LONG).show();
 
         viewModel.vNum1.observe(this, new Observer<Integer>() {
@@ -111,14 +114,16 @@ public class MainActivity extends AppCompatActivity {
 
         Btchecking = findViewById(R.id.Btchecking);
         Btchecking.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View view) {
-                boolean res = viewModel.vchak(EtAnswer.getText().toString());
+                int sum = 0;
+                boolean res = viewModel.vCheck(EtAnswer.getText().toString());
                 if (res == true) {
-                    Toast.makeText(MainActivity.this, "success", Toast.LENGTH_LONG).show();
-                    viewModel.setScore(viewModel.point);
+                    Toast.makeText(MainActivity.this, "success", Toast.LENGTH_SHORT).show();
+                    viewModel.user.setRate(sum = sum + viewModel.point);
                 } else {
-                    Toast.makeText(MainActivity.this, "error", Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.this, "error", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -163,7 +168,8 @@ public class MainActivity extends AppCompatActivity {
                 FragmentTransaction trans = getSupportFragmentManager().beginTransaction();
                 trans.add(R.id.frameLayout,new fragment_showusers());
                 trans.commit();
-
+//                Intent intent = new Intent(MainActivity.this, ShowAllUsers.class);
+//                startActivity(intent);
 
             }
         });
