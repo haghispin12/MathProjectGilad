@@ -1,19 +1,29 @@
 package com.example.mathprojectgilad;
 
+import android.graphics.Bitmap;
 import android.net.Uri;
 
 public class User {
     private String Name;
-
     private int Rate;
-
     private int Score;
-    private String userName;
-    private int rating;
-    private int myScore;
     private Uri uri;
     private long id;
+    private Bitmap bitmap;
 
+
+    public User ( long id, String Name, int Rate, Bitmap bitmap, int Score) {
+        this.id = id;
+        this.Name = Name;
+        this.Rate = Rate;
+        this.bitmap = bitmap;
+        this.Score = Score;
+
+    }
+
+    public User() {
+
+    }
 
     public String getName(String Name){
         return Name;
@@ -31,25 +41,19 @@ public class User {
         this.Rate = rate;
     }
 
-    public int getScore (int score){
+    public int getScore (){
         return Score;
     }
 
     public void setScore (int score){
-        this.Score = score;
+        this.Score = score + Score;
+
     }
 
     public String getUserName() {
         return Name;
     }
 
-    public int getRating() {
-        return rating;
-    }
-
-    public int getMyScore() {
-        return myScore;
-    }
 
     public Uri getUri() {
         return uri;
@@ -64,6 +68,19 @@ public class User {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public  User (){
+
+    }
+
+    public User () {
+        this.id = id;
+        this.Name = Name;
+        this.Rate = Rate;
+        this.bitmap = bitmap;
+        this.Score = Score;
+
     }
 
 }

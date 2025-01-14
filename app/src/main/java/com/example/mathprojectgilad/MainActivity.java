@@ -117,11 +117,10 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
-                int sum = 0;
                 boolean res = viewModel.vCheck(EtAnswer.getText().toString());
                 if (res == true) {
                     Toast.makeText(MainActivity.this, "success", Toast.LENGTH_SHORT).show();
-                    viewModel.user.setRate(sum = sum + viewModel.point);
+                    viewModel.user.setScore(viewModel.point);
                 } else {
                     Toast.makeText(MainActivity.this, "error", Toast.LENGTH_SHORT).show();
                 }

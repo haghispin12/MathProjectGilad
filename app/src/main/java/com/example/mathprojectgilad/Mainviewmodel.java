@@ -7,6 +7,9 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 public class Mainviewmodel extends ViewModel {
     public static long dbhalper;
     MutableLiveData<Integer> vNum1;
@@ -19,6 +22,8 @@ public class Mainviewmodel extends ViewModel {
 
     MutableLiveData<Integer> vNum2;
 
+    MutableLiveData<ArrayList<User>> Arry;
+
     Exercise exercise;
 
     public String tvUserName (){
@@ -29,7 +34,7 @@ public class Mainviewmodel extends ViewModel {
     }
 
     public int tvScore1(){
-        return user.getMyScore();
+        return user.getScore();
     }
 
     public Mainviewmodel() {
@@ -62,11 +67,18 @@ public class Mainviewmodel extends ViewModel {
     }
 
 
-    public long dbAddUser (Context taz){
+    public long dbAddUser (Context taz){ // להחליף בין הid לBD
         DBHelper id =  new DBHelper(taz);
         long db = id.insert(user,taz);
         Log.d("gilad1",db+"");
         return db;
+    }
+
+    public void dbSeclct (Context context){
+        DBHelper str = new DBHelper(context);
+        ArrayList db = str.selectAll();
+        return ;
+
     }
 
 
@@ -82,6 +94,8 @@ public class Mainviewmodel extends ViewModel {
         user.setName(name);
 
     }
+
+
 
 
     public Mainviewmodel user() {

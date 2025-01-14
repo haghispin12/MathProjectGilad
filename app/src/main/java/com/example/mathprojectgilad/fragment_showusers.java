@@ -14,10 +14,10 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +25,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
 
 
 public class fragment_showusers extends Fragment {
@@ -58,6 +60,7 @@ public class fragment_showusers extends Fragment {
                     if (result.getResultCode() == RESULT_OK) {
 
                         ivProfileImage.setImageURI(uri);
+                        mainviewmodel.user.setUri(uri);
 
                     }
 
@@ -88,7 +91,7 @@ public class fragment_showusers extends Fragment {
 
         BtPICTURE = view.findViewById(R.id.btAddPicture);
 
-        tvScore.setText(mainviewmodel.user.getMyScore()+ "");
+        tvScore.setText(mainviewmodel.user.getScore()+ "");
         tvUsername.setText(mainviewmodel.user.getUserName()+"");
         tvRateing.setText(mainviewmodel.user.getRate()+"");
 
@@ -123,7 +126,7 @@ public class fragment_showusers extends Fragment {
                 long id = 0;
                 if( getActivity() != null )
                     id = mainviewmodel.dbAddUser(getActivity());
-                Toast.makeText(getActivity(),id+"", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(),id+" ", Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -135,8 +138,13 @@ public class fragment_showusers extends Fragment {
                 getActivity().onBackPressed();
             }
         });
+        //לטעון את הdbSelect בviewModel...
+        mainviewmodel.Arry.observe(getActivity(), new Observer<ArrayList<User>>() {
+            @Override
+            public void onChanged(ArrayList<User> users) {
 
-
+            }
+        });
 
 
         return view;
