@@ -25,7 +25,8 @@ public class User {
 
     }
 
-    public String getName(String Name){
+
+    public String getName(){
         return Name;
     }
 
@@ -70,17 +71,12 @@ public class User {
         this.id = id;
     }
 
-    public  User (){
 
+    public Bitmap getBitmap() {
+        return bitmap;
     }
 
-    public User () {
-        this.id = id;
-        this.Name = Name;
-        this.Rate = Rate;
+    public void setBitmap(Bitmap bitmap) {
         this.bitmap = bitmap;
-        this.Score = Score;
-
     }
-
 }

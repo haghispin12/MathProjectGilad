@@ -16,6 +16,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
@@ -47,6 +49,8 @@ public class fragment_showusers extends Fragment {
 
     private Mainviewmodel mainviewmodel;
 
+    private RecyclerView rcUserAdapter;
+
     Uri uri;
     ActivityResultLauncher<Intent> startCamera = registerForActivityResult(
 
@@ -72,6 +76,7 @@ public class fragment_showusers extends Fragment {
         super.onCreate(savedInstanceState);
 
     }
+
 
 
 
@@ -119,6 +124,8 @@ public class fragment_showusers extends Fragment {
 
         ivProfileImage = view.findViewById(R.id.ivProfileImage);
 
+        rcUserAdapter = view.findViewById(R.id.rcShowUsers);
+
         BtAddUser = view.findViewById(R.id.btAddUser);
         BtAddUser.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -139,11 +146,20 @@ public class fragment_showusers extends Fragment {
             }
         });
         //לטעון את הdbSelect בviewModel...
-        mainviewmodel.Arry.observe(getActivity(), new Observer<ArrayList<User>>() {
+        mainviewmodel.Arry.observe(requireActivity(), new Observer<ArrayList<User>>() {
             @Override
             public void onChanged(ArrayList<User> users) {
-
+                UserAdapter ua = new UserAdapter(users, new UserAdapter.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(User item) {
+                        int t =10;
+                    }
+                });
+                rcUserAdapter.setLayoutManager(new LinearLayoutManager(requireActivity()));
+                rcUserAdapter.setAdapter(ua);
+                rcUserAdapter.setHasFixedSize(true);
             }
+
         });
 
 

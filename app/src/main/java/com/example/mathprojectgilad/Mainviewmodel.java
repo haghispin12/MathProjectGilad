@@ -41,6 +41,7 @@ public class Mainviewmodel extends ViewModel {
         vNum1 = new MutableLiveData<>();
         vNum2 = new MutableLiveData<>();
         user = new User();
+        Arry = new MutableLiveData<>(new ArrayList<User>());
         exercise = new Exercise();
     }
 
