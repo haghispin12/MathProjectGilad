@@ -72,11 +72,11 @@
             android:layout_gravity="center"
             android:text="BACK" />
 
-        <ListView
-            android:id="@+id/lvListNumber"
-            android:layout_width="match_parent"
-            android:layout_height="320dp"
-            android:dividerHeight="10dp" />
+        <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rcShowUsers"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:listitem="@layout/activity_show_all_users"/> />
 
 
     </LinearLayout>

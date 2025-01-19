@@ -10,7 +10,7 @@
     tools:context=".ShowAllUsers">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rcShowUsers"
+        android:id="@+id/rcFruitUser"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
 tools:listitem="@layout/activity_show_all_users"/>
