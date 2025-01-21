@@ -5,10 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/white"
+    android:background="@color/white">
 
-    >
-<LinearLayout
+    <LinearLayout
+        android:layout_marginTop="50dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -71,6 +71,10 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="BACK" />
-
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcShowUsers"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:listitem="@layout/item_user"/> />
     </LinearLayout>
 </FrameLayout>

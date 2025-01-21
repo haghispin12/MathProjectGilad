@@ -78,7 +78,7 @@ public class Mainviewmodel extends ViewModel {
     public void dbSeclct (Context context){
         DBHelper str = new DBHelper(context);
         ArrayList db = str.selectAll();
-        return ;
+        Arry.setValue(db);
 
     }
 

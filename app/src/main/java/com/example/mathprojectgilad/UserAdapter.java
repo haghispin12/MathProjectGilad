@@ -57,7 +57,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.MyViewHolder> 
             super(itemView);
             tvUserName = itemView.findViewById(R.id.tvUsername);
             tvUserRate = itemView.findViewById(R.id.tvRate);
-            ivUserPic = itemView.findViewById(R.id.ivProfileImage);
+            ivUserPic = itemView.findViewById(R.id.ivUserImg);
         }
 
         public void bind(final User item, final OnItemClickListener listener){

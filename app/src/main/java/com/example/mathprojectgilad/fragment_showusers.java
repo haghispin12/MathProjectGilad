@@ -12,7 +12,9 @@ import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.view.MenuProvider;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -21,6 +23,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -31,15 +36,13 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 
-public class fragment_showusers extends Fragment {
+public class fragment_showusers extends Fragment implements MenuProvider{
 
     private TextView tvRateing;
     private TextView tvUsername;
     private TextView tvScore;
 
     private Button BtPICTURE;
-
-    private Button BtUser;
 
     private Button BtBackHome;
 
@@ -71,6 +74,8 @@ public class fragment_showusers extends Fragment {
                 }
 
             });
+    private MenuItem itemDelete;
+    private MenuItem itemEdit;
 
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,7 +90,7 @@ public class fragment_showusers extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        mainviewmodel = new ViewModelProvider(getActivity()).get(Mainviewmodel.class);
+        mainviewmodel = new ViewModelProvider(requireActivity()).get(Mainviewmodel.class);
         View view= inflater.inflate(R.layout.fragment_showusers, container, false);
 
         tvRateing = view.findViewById(R.id.tvRate);
@@ -133,11 +138,11 @@ public class fragment_showusers extends Fragment {
                 long id = 0;
                 if( getActivity() != null )
                     id = mainviewmodel.dbAddUser(getActivity());
+                mainviewmodel.dbSeclct(getActivity());
                 Toast.makeText(getActivity(),id+" ", Toast.LENGTH_SHORT).show();
 
             }
         });
-        BtUser =view.findViewById(R.id.btAddUser);
         BtBackHome = view.findViewById(R.id.btBackHome);
         BtBackHome.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -149,18 +154,19 @@ public class fragment_showusers extends Fragment {
         mainviewmodel.Arry.observe(requireActivity(), new Observer<ArrayList<User>>() {
             @Override
             public void onChanged(ArrayList<User> users) {
-                UserAdapter ua = new UserAdapter(users, new UserAdapter.OnItemClickListener() {
+                int x = 10;
+                UserAdapter Ua = new UserAdapter(users, new UserAdapter.OnItemClickListener() {
                     @Override
                     public void onItemClick(User item) {
                         int t =10;
                     }
                 });
                 rcUserAdapter.setLayoutManager(new LinearLayoutManager(requireActivity()));
-                rcUserAdapter.setAdapter(ua);
+                rcUserAdapter.setAdapter(Ua);
                 rcUserAdapter.setHasFixedSize(true);
             }
-
         });
+        mainviewmodel.dbSeclct(getActivity());
 
 
         return view;
@@ -170,4 +176,25 @@ public class fragment_showusers extends Fragment {
     }
 
 
-}
+    @Override
+    public void onCreateMenu(@NonNull Menu menu, @NonNull MenuInflater menuInflater) {
+        menuInflater.inflate(R.menu.main_menu,menu);
+        itemDelete = menu.findItem(R.id.action_delete);
+        itemDelete.setVisible(false);
+        itemEdit = menu.findItem(R.id.action_edit);
+        itemEdit.setVisible(false);
+        super.onCreateOptionsMenu(menu,menuInflater);
+    }
+
+    @Override
+    public boolean onMenuItemSelected(@NonNull MenuItem menuItem) {
+        int id = menuItem.getItemId();
+        switch (id) {
+            case R.id.action_delete:
+                return true;
+            case R.id.action_edit:
+                return true;
+        }
+return false;
+    }
+    }
