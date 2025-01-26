@@ -29,6 +29,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,9 +38,9 @@ import java.util.ArrayList;
 
 
 public class fragment_showusers extends Fragment implements MenuProvider{
-
+    private User currentUser;
     private TextView tvRateing;
-    private TextView tvUsername;
+    private EditText tvUsername;
     private TextView tvScore;
 
     private Button BtPICTURE;
@@ -158,6 +159,12 @@ public class fragment_showusers extends Fragment implements MenuProvider{
                 UserAdapter Ua = new UserAdapter(users, new UserAdapter.OnItemClickListener() {
                     @Override
                     public void onItemClick(User item) {
+                        itemDelete.setVisible(true);
+                        itemEdit.setVisible(true);
+                        tvRateing.setText("rate:" + mainviewmodel.user.getRate());
+                        tvScore.setText("score:"+mainviewmodel.user.getScore());
+                        tvUsername.setText("user name:"+ mainviewmodel.user.getUserName());
+
                         int t =10;
                     }
                 });
@@ -168,7 +175,7 @@ public class fragment_showusers extends Fragment implements MenuProvider{
         });
         mainviewmodel.dbSeclct(getActivity());
 
-
+        requireActivity().addMenuProvider(this);
         return view;
     }
     public void setPcimageView(ImageView pcimageView) {
@@ -193,7 +200,9 @@ public class fragment_showusers extends Fragment implements MenuProvider{
             case R.id.action_delete:
                 return true;
             case R.id.action_edit:
-                return true;
+                currentUser.setName(String.valueOf(tvUsername.getText()));
+                mainviewmodel.updateName(getActivity(), currentUser);
+            return true;
         }
 return false;
     }
